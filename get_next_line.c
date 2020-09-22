@@ -6,7 +6,7 @@
 /*   By: nabbassi <nabbassi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/31 16:02:28 by nabbassi          #+#    #+#             */
-/*   Updated: 2020/09/17 14:38:44 by nabbassi         ###   ########.fr       */
+/*   Updated: 2020/09/17 20:45:57 by nabbassi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,12 @@ int				get_next_line(int const fd, char **line)
 	{
 		buff[res] = '\0';
 		ptr = stock;
-		stock = ft_strjoin(ptr, buff);
+		if (!(stock = ft_strjoin(ptr, buff)))
+			return (-1);
 		ft_strdel(&ptr);
 	}
-	*line = ft_strsub(stock, 0, ft_endofline(stock));
+	if (!(*line = ft_strsub(stock, 0, ft_endofline(stock))))
+		return (-1);
 	if (ft_lineread(stock) == NULL)
 		return (0);
 	return (1);
